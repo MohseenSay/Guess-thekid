@@ -94,7 +94,7 @@
         const nameId = event.target.id;
 
         // Check if the dragged photo matches the target name box
-        if (correctMatches[photoId] === nameId) {
+        if (correctMatches[photoId] == nameId) {
             // Append the photo to the correct box
             event.target.appendChild(document.getElementById(photoId));
             
@@ -110,5 +110,6 @@
         }
     }
 </script>
+
 </body>
 </html>

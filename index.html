@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guess the Kid Game</title>
+    <title>Drag the photos to right name - Guess the Kid</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,12 +41,13 @@
     </style>
 </head>
 <body>
-    <h1>Guess the Kid Game</h1>
+    <h1>Drag photo to the right name - to Guess the Kid Game</h1>
+    <h1>Happy Children Day</h1>
     <div class="game-container">
         <!-- Names to match -->
-        <div id="name1" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Partho</div>
-        <div id="name2" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Mohseen</div>
-        <div id="name3" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Harsh</div>
+        <div id="name1" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Mohseen</div>
+        <div id="name2" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Harsh</div>
+        <div id="name3" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Partho</div>
     </div>
     <div class="game-container">
         <!-- Photos to drag -->
@@ -67,9 +68,9 @@
     <script>
         // Store correct match pairs by IDs
         const correctMatches = {
-            photo1: "name1",
-            photo2: "name2",
-            photo3: "name3"
+            photo1: "name3",
+            photo2: "name1",
+            photo3: "name2"
         };
 
         let score = 0;

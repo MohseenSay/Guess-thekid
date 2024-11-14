@@ -66,50 +66,52 @@
     </div>
 
  <script>
-    // Define correct match pairs by ID
-    const correctMatches = {
-        photo1: "name3",
-        photo2: "name1",
-        photo3: "name2"
-    };
+        // Define the correct matching pairs by element IDs
+        const correctMatches = {
+            photo1: "name1",
+            photo2: "name2",
+            photo3: "name3"
+        };
 
-    let score = 0;
+        let score = 0;
 
-    function allowDrop(event) {
-        event.preventDefault();
-    }
-
-    function drag(event) {
-        // Set the dragged element's id
-        event.dataTransfer.setData("text", event.target.id);
-    }
-
-    function drop(event) {
-        event.preventDefault();
-        
-        // Get the id of the dragged element
-        const photoId = event.dataTransfer.getData("text");
-        
-        // Get the id of the target element
-        const nameId = event.target.id;
-
-        // Check if the dragged photo matches the target name box
-        if (correctMatches[photoId] == nameId) {
-            // Append the photo to the correct box
-            event.target.appendChild(document.getElementById(photoId));
-            
-            // Increase the score and update the score display
-            score++;
-            document.getElementById("score").innerText = score;
-
-            // Provide feedback for a correct match
-            alert("Correct match!");
-        } else {
-            // Provide feedback for an incorrect match
-            alert("Incorrect match! Try again.");
+        function allowDrop(event) {
+            event.preventDefault();
         }
-    }
-</script>
 
+        function drag(event) {
+            // Save the ID of the dragged element
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+
+            // Get the ID of the dragged photo
+            const photoId = event.dataTransfer.getData("text");
+
+            // Get the ID of the target name box
+            const nameId = event.target.id;
+
+            // Check if the dragged photo matches the target name box
+            if (correctMatches[photoId] === nameId) {
+                // Append the photo to the correct name box
+                const draggedElement = document.getElementById(photoId);
+                event.target.appendChild(draggedElement);
+
+                // Update the score and display it
+                score++;
+                document.getElementById("score").innerText = score;
+
+                // Provide feedback for a correct match
+                alert("Correct match!");
+            } else {
+                // Feedback for an incorrect match
+                alert("Incorrect match! Try again.");
+            }
+        }
+    </script>
 </body>
 </html>
+</body>
+</html

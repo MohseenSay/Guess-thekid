@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Kid Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .game-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .name-box, .photo {
+            border: 2px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            width: 100px;
+            height: 150px;
+            background-color: #f9f9f9;
+        }
+        .name-box {
+            border-style: dashed;
+        }
+        .photo img {
+            width: 100%;
+            height: auto;
+        }
+        .score-board {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Kid Game</h1>
+    <div class="game-container">
+        <!-- Names to match -->
+        <div id="name1" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Partho</div>
+        <div id="name2" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Mohseen</div>
+        <div id="name3" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Harsh</div>
+    </div>
+    <div class="game-container">
+        <!-- Photos to drag -->
+        <div id="photo1" class="photo" draggable="true" ondragstart="drag(event)">
+            <img src="31863f43-ca35-4462-8bc0-e0939a7330a0.jpeg" alt="Kid 1">
+        </div>
+        <div id="photo2" class="photo" draggable="true" ondragstart="drag(event)">
+            <img src="2b259047-9484-4534-a8b9-60ace71943ee.jpeg" alt="Kid 2">
+        </div>
+        <div id="photo3" class="photo" draggable="true" ondragstart="drag(event)">
+            <img src="9fa54be2-10f8-492c-b979-7a990848df49.jpeg" alt="Kid 3">
+        </div>
+    </div>
+    <div class="score-board">
+        Score: <span id="score">0</span>
+    </div>
+
+    <script>
+        // Define the correct matching pairs by element IDs
+        const correctMatches = {
+            photo1: "name2",
+            photo2: "name3",
+            photo3: "name1"
+        };
+
+        let score = 0;
+
+        // Allow the drop action
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        // Start dragging, set the dragged item's ID in the dataTransfer object
+        function drag(event) {
+            // Set the ID of the dragged element
+            event.dataTransfer.setData("text", event.target.id);
+            console.log("Dragging:", event.target.id);
+        }
+
+        // Handle the drop event and check if the photo matches the name box
+        function drop(event) {
+            event.preventDefault();
+
+            // Get the ID of the dragged photo
+            const photoId = event.dataTransfer.getData("text");
+            console.log("Dropped:", photoId);
+
+            // Get the ID of the target name box
+            const nameId = event.target.id;
+            console.log("Target box:", nameId);
+
+            // Check if the dragged photo matches the target name box
+            if (correctMatches[photoId] === nameId) {
+                // If the match is correct, append the photo to the target name box
+                const draggedElement = document.getElementById(photoId);
+                event.target.appendChild(draggedElement);
+
+                // Increase the score and update the display
+                score++;
+                document.getElementById("score").innerText = score;
+
+                // Provide feedback for correct match
+                alert("Correct match!");
+            } else {
+                // Feedback for incorrect match
+                alert("Incorrect match! Try again.");
+            }
+        }
+    </script>
+</body>
+</html>

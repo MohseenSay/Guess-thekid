@@ -65,37 +65,50 @@
         Score: <span id="score">0</span>
     </div>
 
-    <script>
-        // Store correct match pairs by IDs
-        const correctMatches = {
-            photo1: "name3",
-            photo2: "name1",
-            photo3: "name2"
-        };
+ <script>
+    // Define correct match pairs by ID
+    const correctMatches = {
+        photo1: "name3",
+        photo2: "name1",
+        photo3: "name2"
+    };
 
-        let score = 0;
+    let score = 0;
 
-        function allowDrop(event) {
-            event.preventDefault();
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drag(event) {
+        // Set the dragged element's id
+        event.dataTransfer.setData("text", event.target.id);
+    }
+
+    function drop(event) {
+        event.preventDefault();
+        
+        // Get the id of the dragged element
+        const photoId = event.dataTransfer.getData("text");
+        
+        // Get the id of the target element
+        const nameId = event.target.id;
+
+        // Check if the dragged photo matches the target name box
+        if (correctMatches[photoId] === nameId) {
+            // Append the photo to the correct box
+            event.target.appendChild(document.getElementById(photoId));
+            
+            // Increase the score and update the score display
+            score++;
+            document.getElementById("score").innerText = score;
+
+            // Provide feedback for a correct match
+            alert("Correct match!");
+        } else {
+            // Provide feedback for an incorrect match
+            alert("Incorrect match! Try again.");
         }
-
-        function drag(event) {
-            event.dataTransfer.setData("text", event.target.id);
-        }
-
-        function drop(event) {
-            event.preventDefault();
-            const photoId = event.dataTransfer.getData("text");
-            const nameId = event.target.id;
-
-            if (correctMatches[photoId] === nameId) {
-                event.target.appendChild(document.getElementById(photoId));
-                score++;
-                document.getElementById("score").innerText = score;
-            } else {
-                alert("Incorrect match! Try again.");
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>

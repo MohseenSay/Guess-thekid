@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Kid Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        .game-container {
+            display: flex;
+            gap: 20px;
+        }
+        .name-box, .photo {
+            border: 2px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            width: 100px;
+            height: 150px;
+            background-color: #f9f9f9;
+        }
+        .name-box {
+            border-style: dashed;
+        }
+        .photo img {
+            width: 100%;
+            height: auto;
+        }
+        .score-board {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Guess the Kid Game</h1>
+    <div class="game-container">
+        <!-- Names to match -->
+        <div id="name1" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Partho</div>
+        <div id="name2" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Mohseen</div>
+        <div id="name3" class="name-box" ondrop="drop(event)" ondragover="allowDrop(event)">Harsh</div>
+    </div>
+    <div class="game-container">
+        <!-- Photos to drag -->
+        <div id="photo1" class="photo" draggable="true" ondragstart="drag(event)">
+            <img src="2b259047-9484-4534-a8b9-60ace71943ee.jpeg" alt="Kid 1">
+        </div>
+        <div id="photo2" class="photo" draggable="true" ondragstart="drag(event)">
+            <img src="9fa54be2-10f8-492c-b979-7a990848df49.jpeg" alt="Kid 2">
+        </div>
+        <div id="photo3" class="photo" draggable="true" ondragstart="drag(event)">
+            <img src="31863f43-ca35-4462-8bc0-e0939a7330a0.jpeg" alt="Kid 3">
+        </div>
+    </div>
+    <div class="score-board">
+        Score: <span id="score">0</span>
+    </div>
+
+    <script>
+        // Store correct match pairs by IDs
+        const correctMatches = {
+            photo1: "name1",
+            photo2: "name2",
+            photo3: "name3"
+        };
+
+        let score = 0;
+
+        function allowDrop(event) {
+            event.preventDefault();
+        }
+
+        function drag(event) {
+            event.dataTransfer.setData("text", event.target.id);
+        }
+
+        function drop(event) {
+            event.preventDefault();
+            const photoId = event.dataTransfer.getData("text");
+            const nameId = event.target.id;
+
+            if (correctMatches[photoId] === nameId) {
+                event.target.appendChild(document.getElementById(photoId));
+                score++;
+                document.getElementById("score").innerText = score;
+            } else {
+                alert("Incorrect match! Try again.");
+            }
+        }
+    </script>
+</body>
+</html>
